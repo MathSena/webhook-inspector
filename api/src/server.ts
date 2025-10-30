@@ -7,9 +7,12 @@ import {
 } from 'fastify-type-provider-zod'
 import { fastifySwagger } from '@fastify/swagger'
 import { fastifyCors } from '@fastify/cors'
-import ScalarApiReference from '@scalar/fastify-api-reference'
 import { listWebhooks } from './routes/list-webhooks'
+import { getWebhook } from './routes/get-webhook'
+import { deleteWebhook } from './routes/delete-webhook'
+import { captureWebhook } from './routes/capture-webhook'
 import { env } from '@/env'
+import ScalarApiReference from '@scalar/fastify-api-reference'
 // Initialize Fastify with Zod type provider
 const app = fastify()
 
@@ -38,6 +41,9 @@ app.register(ScalarApiReference, {
 }) // Register Scalar API Reference plugin
 
 app.register(listWebhooks)
+app.register(getWebhook)
+app.register(deleteWebhook)
+app.register(captureWebhook)
 
 app
   .listen({ port: env.PORT, host: '0.0.0.0' })
